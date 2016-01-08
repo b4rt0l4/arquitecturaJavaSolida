@@ -19,12 +19,12 @@
 	</script>	
 </head>
 <body>
-	<form id="formularioInsercion" action="insertarLibro.jsp" onsubmit="return validacion();">
+	<form id="formularioInsercion" action="InsertarLibro.jsp" onsubmit="return validacion();">
 		<fieldset>
 			<legend>Formulario alta Libro</legend>
 			<p><label for="isbn">ISBN:</label><input id="isbn" type="text" name="isbn" /></p>
-			<p><label for="titulo">Título:</label><input id="titulo" type="text" name="titulo" /></p>
-			<p><label for="categoria">Categoría:</label><input id="categoria" type="text" name="categoria" /></p>
+			<p><label for="titulo">T&iacutetulo:</label><input id="titulo" type="text" name="titulo" /></p>
+			<p><label for="categoria">Categor&iacutea:</label><input id="categoria" type="text" name="categoria" /></p>
 			<p><input type="submit" value="Insertar" /></p>
 		</fieldset>
 	</form>
