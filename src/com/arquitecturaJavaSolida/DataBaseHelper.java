@@ -15,6 +15,10 @@ public class DataBaseHelper<T> {
 	private static final String URL = "jdbc:mysql://localhost/arquitecturajava";
 	private static final String USUARIO = "arquitecturajava";
 	private static final String CLAVE = "arquitecturajava";
+	//Constantes de error
+	private final String CLASENOENCONTRADA = "Clase no encontrada";
+	private final String ERRORDESQL = "Error de SQL";
+	private final String ERRORALSELECCIONARREGISTROS = "Error al seleccionar registros";
 	
 	public int modificarRegistro(String consultaSQL) {
 		
@@ -28,9 +32,11 @@ public class DataBaseHelper<T> {
 			sentencia = conexion.createStatement();
 			filasAfectadas = sentencia.executeUpdate(consultaSQL);
 		} catch (ClassNotFoundException e) {
-			System.out.println("Error driver" + e.getMessage());
+			System.out.println(this.CLASENOENCONTRADA + " " + e.getMessage());
+			throw new DataBaseException(this.CLASENOENCONTRADA, e);
 		} catch (SQLException e) {
-			System.out.println("Error de SQL" + e.getMessage());
+			System.out.println(this.ERRORDESQL + " " + e.getMessage());
+			throw new DataBaseException(this.ERRORDESQL, e);
 		} finally {
 			if (sentencia != null) {
 				try {sentencia.close();} catch (SQLException e) {}
@@ -72,11 +78,14 @@ public class DataBaseHelper<T> {
 				listaDeObjetos.add(objeto);
 			}
 		} catch (ClassNotFoundException e) {
-			System.out.println("Error driver" + e.getMessage());
+			System.out.println(this.CLASENOENCONTRADA + " " + e.getMessage());
+			throw new DataBaseException(this.CLASENOENCONTRADA, e);
 		} catch (SQLException e) {
-			System.out.println("Error de SQL" + e.getMessage());
+			System.out.println(this.ERRORDESQL + " " + e.getMessage());
+			throw new DataBaseException(this.ERRORDESQL, e);
 		} catch (Exception e) {
-			System.out.println("Error al seleccionar registros " + e.getMessage());
+			System.out.println(this.ERRORALSELECCIONARREGISTROS + " " + e.getMessage());
+			throw new DataBaseException(this.ERRORALSELECCIONARREGISTROS, e);
 		}  finally {
 			if (sentencia != null) {
 				try {sentencia.close();} catch (SQLException e) {}

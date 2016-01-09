@@ -88,7 +88,7 @@ public class Libro {
 		return listaDeLibros.get(0);
 	}
 	
-	public void salvar ()  {
+	public void salvar() {
 		String consultaSQL = "update libros set titulo='"+ this.titulo+"',categoria='"+ this.categoria+"' where isbn='"+ this.isbn+"'";
 		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
 		helper.modificarRegistro(consultaSQL);
