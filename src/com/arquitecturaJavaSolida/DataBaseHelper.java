@@ -1,4 +1,4 @@
-package com.arquitecturajavaSolida;
+package com.arquitecturaJavaSolida;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;

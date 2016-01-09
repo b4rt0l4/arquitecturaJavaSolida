@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="com.arquitecturajavaSolida.Libro"%>
+<%@ page import="com.arquitecturaJavaSolida.Libro"%>
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -27,8 +28,8 @@
 		<fieldset>
 			<legend>Formulario alta Libro</legend>
 			<p><label for="isbn">ISBN:</label><input id="isbn" type="text" name="isbn" /></p>
-			<p><label for="titulo">T&iacutetulo:</label><input id="titulo" type="text" name="titulo" /></p>
-			<p><label for="categoria">Categor&iacutea:</label>
+			<p><label for="titulo">Título:</label><input id="titulo" type="text" name="titulo" /></p>
+			<p><label for="categoria">Categoría:</label>
 				<select name="categoria" id="categoria">
 					<option value="seleccionar">seleccionar</option>
 					<%
