@@ -8,9 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class DataBaseHelper<T> {
 	
+	private static final Logger log = LogManager.getLogger(DataBaseHelper.class.getPackage().getName());
+
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://localhost/arquitecturajava";
 	private static final String USUARIO = "arquitecturajava";
@@ -32,10 +36,10 @@ public class DataBaseHelper<T> {
 			sentencia = conexion.createStatement();
 			filasAfectadas = sentencia.executeUpdate(consultaSQL);
 		} catch (ClassNotFoundException e) {
-			System.out.println(this.CLASENOENCONTRADA + " " + e.getMessage());
+			log.error(this.CLASENOENCONTRADA + ": " + e.getMessage());
 			throw new DataBaseException(this.CLASENOENCONTRADA, e);
 		} catch (SQLException e) {
-			System.out.println(this.ERRORDESQL + " " + e.getMessage());
+			log.error(this.ERRORDESQL + ": " + e.getMessage());
 			throw new DataBaseException(this.ERRORDESQL, e);
 		} finally {
 			if (sentencia != null) {
@@ -78,13 +82,13 @@ public class DataBaseHelper<T> {
 				listaDeObjetos.add(objeto);
 			}
 		} catch (ClassNotFoundException e) {
-			System.out.println(this.CLASENOENCONTRADA + " " + e.getMessage());
+			log.error(this.CLASENOENCONTRADA + ": " + e.getMessage());
 			throw new DataBaseException(this.CLASENOENCONTRADA, e);
 		} catch (SQLException e) {
-			System.out.println(this.ERRORDESQL + " " + e.getMessage());
+			log.error(this.ERRORDESQL + ": " + e.getMessage());
 			throw new DataBaseException(this.ERRORDESQL, e);
 		} catch (Exception e) {
-			System.out.println(this.ERRORALSELECCIONARREGISTROS + " " + e.getMessage());
+			log.error(this.ERRORALSELECCIONARREGISTROS + ": " + e.getMessage());
 			throw new DataBaseException(this.ERRORALSELECCIONARREGISTROS, e);
 		}  finally {
 			if (sentencia != null) {
