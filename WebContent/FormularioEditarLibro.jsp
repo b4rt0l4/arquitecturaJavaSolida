@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import = "java.util.List" %>
 <%@ page import ="com.arquitecturaJavaSolida.aplicacion.Libro"%>
 <% Libro libro = (Libro) request.getAttribute("libro");%>
@@ -21,18 +22,12 @@
 		<p><label for="titulo">Título:</label><input id="titulo" type="text" name="titulo" value="<%=libro.getTitulo()%>"/></p>
 		<p><label for="categoria">Categoría:</label>
 			<select name="categoria" id="categoria">
-				<%
-					@SuppressWarnings("unchecked")
-					List<String> listaDeCategorias = (List<String>) request.getAttribute("listaDeCategorias");
-
-					for (String categoria:listaDeCategorias) {
-				%>
-						<option value="<%=categoria%>"<%if (libro.getCategoria().equals(categoria)){%> selected="selected" <%}%>><%=categoria%></option>
-				<%
-					}
-				%>
+				<c:forEach var="categoria" items="${listaDeCategorias}">
+					<option value="${categoria}"
+						<c:if test="${categoria == libro.categoria}"> selected="selected"</c:if>
+					>${categoria}</option>
+				</c:forEach>
 			</select>
-		<br/>
 		</p>
 		<p><input type="submit" value="Salvar" /></p>
 	</fieldset>

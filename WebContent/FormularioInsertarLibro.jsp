@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.arquitecturaJavaSolida.aplicacion.Libro"%>
 
@@ -32,15 +33,9 @@
 			<p><label for="categoria">Categoría:</label>
 				<select name="categoria" id="categoria">
 					<option value="seleccionar">seleccionar</option>
-					<%
-						List<String> listaDeCategorias = null;
-						listaDeCategorias = Libro.buscarTodasLasCategorias();
-
-						for (String categoria:listaDeCategorias) {
-					%>
-							<option value="<%=categoria%>"><%=categoria%></option>
-					<%	}	%>
-					
+					<c:forEach var="categoria" items="${listaDeCategorias}">
+						<option value="${categoria}">${categoria}</option>
+					</c:forEach>
 				</select>
 			</p>
 			<p><input type="submit" value="Insertar" /></p>

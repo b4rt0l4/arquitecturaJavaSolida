@@ -52,7 +52,7 @@ public class Libro {
 	}
 
 	public static List<String> buscarTodasLasCategorias() {
-		String consultaSQL = "select distinct(categoria) as categoria from libros";
+		String consultaSQL = "select distinct(categoria) as categoria from libros order by categoria asc";
 		DataBaseHelper<String> helper = new DataBaseHelper<String>();
 		List<String> listaDeCategorias = helper.seleccionarRegistros(consultaSQL, String.class);
 				

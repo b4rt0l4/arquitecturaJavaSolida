@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.arquitecturaJavaSolida.aplicacion.Libro"%>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.util.ArrayList" %>
@@ -15,32 +16,22 @@
 	<form name="filtroCategoria" id="filtroCategoria" action="Filtrar.do">
 		<select name="categoria">
 			<option value="seleccionar">seleccionar</option>
-			<%
-				@SuppressWarnings("unchecked")
-				List<String> listaDeCategorias = (List<String>)request.getAttribute("listaDeCategorias");
-				
-				for (String categoria:listaDeCategorias) {
-			%>
-					<option value="<%=categoria%>"><%=categoria%></option>
-			<%	}	%>
+			<c:forEach var="categoria" items="${listaDeCategorias}">
+				<option value="${categoria}">${categoria}</option>
+			</c:forEach>
 		</select>
 		<input type="submit" value = "filtrar">
 		<br/>
 	</form>
 
-	<%
-		@SuppressWarnings("unchecked")
-		List<Libro> listaDeLibros = (List<Libro>)request.getAttribute("listaDeLibros");
-
-		for (Libro libro:listaDeLibros) {
-	%>
-			<%=libro.getIsbn()%>
-			<%=libro.getTitulo()%>
-			<%=libro.getCategoria()%>
-			<a href = "BorrarLibro.do?isbn=<%=libro.getIsbn()%>">Borrar</a>
-			<a href = "FormularioEditarLibro.do?isbn=<%=libro.getIsbn()%>">Editar</a>
-			<br/>
-	<%	}	%>
+	<c:forEach var="libro" items="${listaDeLibros}">
+		${libro.isbn}
+		${libro.titulo}
+		${libro.categoria}
+		<a href = "BorrarLibro.do?isbn=${libro.isbn}">Borrar</a>
+		<a href = "FormularioEditarLibro.do?isbn=${libro.isbn}">Editar</a>
+		<br/>
+	</c:forEach>
 	<a href="FormularioInsertarLibro.do">Insertar libro</a>
 </body>
 </html>
