@@ -9,20 +9,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <head>
 	<title>Formulario Libro</title>
-	<link rel="stylesheet" type="text/css" href= "css/formato.css"/> 
-	<script type="text/javascript">
-		function validacion() {
-			var isbn=document.getElementById("isbn");
-			var miformulario=document.getElementById("formularioInsercion");
-			
-			if(isbn.value==""){
-				alert("datos no validos");
-				return false;
-			} else {
-				miformulario.submit();
-			}
-		}
-	</script>
+	<link rel="stylesheet" type="text/css" href= "css/formato.css"/>
+	<script type="text/javascript" src="js/validacion.js" ></script>
 </head>
 <body>
 	<form id="formularioInsercion" action="InsertarLibro.do" onsubmit="return validacion();">
