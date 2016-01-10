@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.List" %>
-<%@ page import ="com.arquitecturaJavaSolida.Libro"%>
-<% Libro libro = Libro.buscarPorClave (request.getParameter("isbn"));%>
+<%@ page import ="com.arquitecturaJavaSolida.aplicacion.Libro"%>
+<% Libro libro = (Libro) request.getAttribute("libro");%>
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,7 +13,8 @@
 	<link rel="stylesheet" type="text/css" href= "css/formato.css"/>
 </head>
 <body>
-	<form id="formularioEdicion" action="SalvarLibro.jsp">
+	
+	<form id="formularioEdicion" action="ModificarLibro.do">
 	<fieldset>
 		<legend>Formulario editar libro</legend>
 		<p><label for="isbn">ISBN:</label><input id ="isbn" type="text" name="isbn" value="<%=libro.getIsbn()%>"/></p>
@@ -21,8 +22,8 @@
 		<p><label for="categoria">Categoría:</label>
 			<select name="categoria" id="categoria">
 				<%
-					List<String> listaDeCategorias = null;
-					listaDeCategorias = Libro.buscarTodasLasCategorias();
+					@SuppressWarnings("unchecked")
+					List<String> listaDeCategorias = (List<String>) request.getAttribute("listaDeCategorias");
 
 					for (String categoria:listaDeCategorias) {
 				%>

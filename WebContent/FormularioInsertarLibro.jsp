@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="com.arquitecturaJavaSolida.Libro"%>
+<%@ page import="com.arquitecturaJavaSolida.aplicacion.Libro"%>
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -21,10 +21,10 @@
 				miformulario.submit();
 			}
 		}
-	</script>	
+	</script>
 </head>
 <body>
-	<form id="formularioInsercion" action="InsertarLibro.jsp" onsubmit="return validacion();">
+	<form id="formularioInsercion" action="InsertarLibro.do" onsubmit="return validacion();">
 		<fieldset>
 			<legend>Formulario alta Libro</legend>
 			<p><label for="isbn">ISBN:</label><input id="isbn" type="text" name="isbn" /></p>

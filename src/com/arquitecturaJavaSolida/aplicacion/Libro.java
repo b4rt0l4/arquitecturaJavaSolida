@@ -1,4 +1,4 @@
-package com.arquitecturaJavaSolida;
+package com.arquitecturaJavaSolida.aplicacion;
 
 import java.util.List;
 

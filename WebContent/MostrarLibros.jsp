@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.arquitecturaJavaSolida.Libro"%>
+<%@ page import="com.arquitecturaJavaSolida.aplicacion.Libro"%>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
@@ -12,12 +12,12 @@
 	<title>Lista de libros</title>
 </head>
 <body>
-	<form name="filtroCategoria" id="filtroCategoria">
+	<form name="filtroCategoria" id="filtroCategoria" action="Filtrar.do">
 		<select name="categoria">
 			<option value="seleccionar">seleccionar</option>
 			<%
-				List<String> listaDeCategorias = null;
-				listaDeCategorias = Libro.buscarTodasLasCategorias();
+				@SuppressWarnings("unchecked")
+				List<String> listaDeCategorias = (List<String>)request.getAttribute("listaDeCategorias");
 				
 				for (String categoria:listaDeCategorias) {
 			%>
@@ -29,23 +29,18 @@
 	</form>
 
 	<%
-		List<Libro> listaDeLibros = null;
-		String categoria = request.getParameter("categoria");
-		if (categoria==null || categoria.equals("seleccionar")) {
-			listaDeLibros=Libro.buscarTodos();
-		} else {
-			listaDeLibros=Libro.buscarPorCategoria(categoria);
-		}
-		
+		@SuppressWarnings("unchecked")
+		List<Libro> listaDeLibros = (List<Libro>)request.getAttribute("listaDeLibros");
+
 		for (Libro libro:listaDeLibros) {
 	%>
 			<%=libro.getIsbn()%>
 			<%=libro.getTitulo()%>
 			<%=libro.getCategoria()%>
-			<a href = "BorrarLibro.jsp?isbn=<%=libro.getIsbn()%>">Borrar</a>
-			<a href = "FormularioEditarLibro.jsp?isbn=<%=libro.getIsbn()%>">Editar</a>
+			<a href = "BorrarLibro.do?isbn=<%=libro.getIsbn()%>">Borrar</a>
+			<a href = "FormularioEditarLibro.do?isbn=<%=libro.getIsbn()%>">Editar</a>
 			<br/>
 	<%	}	%>
-	<a href="FormularioInsertarLibro.jsp">Insertar Libro</a>
+	<a href="FormularioInsertarLibro.do">Insertar libro</a>
 </body>
 </html>
