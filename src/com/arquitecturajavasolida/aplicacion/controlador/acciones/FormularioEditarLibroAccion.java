@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.arquitecturajavasolida.aplicacion.bo.Categoria;
 import com.arquitecturajavasolida.aplicacion.bo.Libro;
 
 public class FormularioEditarLibroAccion extends Accion {
@@ -13,7 +14,7 @@ public class FormularioEditarLibroAccion extends Accion {
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 		String isbn = request.getParameter("isbn");
 
-		List<Libro> listaDeCategorias = Libro.buscarTodasLasCategorias();
+		List<Categoria> listaDeCategorias = Categoria.buscarTodos();
 		Libro libro = Libro.buscarPorClave(isbn);
 		
 		request.setAttribute("listaDeCategorias", listaDeCategorias);

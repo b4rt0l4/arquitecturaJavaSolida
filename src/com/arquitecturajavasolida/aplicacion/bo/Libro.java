@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.Query;
@@ -18,7 +20,9 @@ public class Libro {
 	@Id
 	private String isbn;
 	private String titulo;
-	private String categoria;
+	@ManyToOne
+	@JoinColumn (name="categoria")
+	private Categoria categoria;
 	
 	@Override
 	public int hashCode() {
@@ -47,11 +51,11 @@ public class Libro {
 		this.titulo = titulo;
 	}
 
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 	
@@ -65,7 +69,7 @@ public class Libro {
 		this.isbn = isbn;
 	}
 	
-	public Libro (String isbn, String titulo, String categoria) {
+	public Libro (String isbn, String titulo, Categoria categoria) {
 		super();
 		this.isbn = isbn;
 		this.titulo = titulo;
@@ -98,19 +102,6 @@ public class Libro {
 		session.saveOrUpdate(this);
 		session.getTransaction().commit();
 	}
-	
-	@SuppressWarnings("unchecked")
-	public static List<Libro> buscarTodasLasCategorias() {
-		SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
-		Session session = factoriaSession.openSession();
-		
-		String consulta = "select distinct libro.categoria as categoria from Libro libro";
-		List<Libro> listaDeCategorias = session.createQuery(consulta).list();
-		
-		session.close();
-		
-		return listaDeCategorias;
-	}
 
 	@SuppressWarnings("unchecked")
 	public static List<Libro> buscarTodos() {
@@ -118,7 +109,7 @@ public class Libro {
 		
 		Session session = factoriaSession.openSession();
 		List<Libro> listaDeLibros = null;
-		listaDeLibros = session.createQuery(" from Libro libro").list();
+		listaDeLibros = session.createQuery("from Libro libro left join fetch libro.categoria").list();
 		
 		session.close();
 		
@@ -133,15 +124,15 @@ public class Libro {
 		session.close();
 
 		return libro;
-	}	
+	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<Libro> buscarPorCategoria(String categoria) {
+	public static List<Libro> buscarPorCategoria(Categoria categoria) {
 		SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
 		Session session = factoriaSession.openSession();
 		
-		Query consulta = session.createQuery(" from Libro libro where libro.categoria=:categoria");
-		consulta.setString("categoria", categoria);
+		Query consulta = session.createQuery("from Libro libro where libro.categoria=:categoria");
+		consulta.setEntity("categoria", categoria);
 		
 		List<Libro> listaDeLibros = consulta.list();
 		session.close();

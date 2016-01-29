@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import = "java.util.List" %>
-<%@ page import ="com.arquitecturajavasolida.aplicacion.bo.Libro"%>
+<%@ page import="com.arquitecturajavasolida.aplicacion.bo.Libro"%>
 <% Libro libro = (Libro) request.getAttribute("libro");%>
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -23,10 +22,10 @@
 		<p><label for="categoria">Categoría:</label>
 			<select name="categoria" id="categoria">
 				<c:forEach var="categoria" items="${listaDeCategorias}">
-					<option value="${categoria}"
-						<c:if test="${categoria == libro.categoria}"> selected="selected"</c:if>
-					>${categoria}</option>
-				</c:forEach>
+					<option value="${categoria.id}"
+						<c:if test="${categoria.id == libro.categoria.id}"> selected="selected"</c:if>
+					>${categoria.descripcion}</option>
+				</c:forEach>		
 			</select>
 		</p>
 		<p><input type="submit" value="Salvar" /></p>
