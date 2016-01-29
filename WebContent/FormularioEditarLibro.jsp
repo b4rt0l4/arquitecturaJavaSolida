@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import = "java.util.List" %>
-<%@ page import ="com.arquitecturaJavaSolida.aplicacion.Libro"%>
+<%@ page import ="com.arquitecturajavasolida.aplicacion.bo.Libro"%>
 <% Libro libro = (Libro) request.getAttribute("libro");%>
 
 <?xml version="1.0" encoding="UTF-8"?>
