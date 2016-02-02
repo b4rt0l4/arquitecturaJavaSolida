@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajavasolida.aplicacion.bo.Categoria;
 import com.arquitecturajavasolida.aplicacion.bo.Libro;
+import com.arquitecturajavasolida.aplicacion.dao.LibroDAO;
+import com.arquitecturajavasolida.aplicacion.dao.jpa.LibroDAOJPAImpl;
 
 public class ModificarLibroAccion extends Accion {
 
@@ -15,8 +17,10 @@ public class ModificarLibroAccion extends Accion {
 		String categoria = request.getParameter("categoria");
 		Categoria objetoCategoria = new Categoria(Integer.parseInt(categoria));
 		
+		LibroDAO libroDAO = new LibroDAOJPAImpl();
+		
 		Libro libro = new Libro(isbn, titulo, objetoCategoria);
-		libro.salvar();
+		libroDAO.salvar(libro);
 		
 		return "MostrarLibros.do";
 	}

@@ -6,12 +6,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajavasolida.aplicacion.bo.Categoria;
+import com.arquitecturajavasolida.aplicacion.dao.CategoriaDAO;
+import com.arquitecturajavasolida.aplicacion.dao.jpa.CategoriaDAOJPAImpl;
 
 public class FormularioInsertarLibroAccion extends Accion {
 
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-		List<Categoria> listaDeCategorias = Categoria.buscarTodos();
+		CategoriaDAO categoriaDAO = new CategoriaDAOJPAImpl();
+		List<Categoria> listaDeCategorias = categoriaDAO.buscarTodos();
 		
 		request.setAttribute("listaDeCategorias", listaDeCategorias);
 		

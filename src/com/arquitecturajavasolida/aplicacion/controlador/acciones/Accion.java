@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.arquitecturajavasolida.aplicacion.JPAHelper;
 import com.arquitecturajavasolida.aplicacion.controlador.ControladorLibrosException;
+import com.arquitecturajavasolida.aplicacion.dao.jpa.JPAHelper;
 
 public abstract class Accion {
 	
