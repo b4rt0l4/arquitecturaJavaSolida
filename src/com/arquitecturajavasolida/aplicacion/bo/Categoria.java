@@ -3,16 +3,15 @@ package com.arquitecturajavasolida.aplicacion.bo;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TypedQuery;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import com.arquitecturajavasolida.aplicacion.HibernateHelper;
+import com.arquitecturajavasolida.aplicacion.JPAHelper;
 
 @Entity
 @Table(name = "categorias")
@@ -74,29 +73,36 @@ public class Categoria {
 		this.listaDeLibros = listaDeLibros;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static List<Categoria> buscarTodos() {
+		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+		EntityManager manager = factoriaSession.createEntityManager();
 		
-		SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
-		Session session = factoriaSession.openSession();
+		TypedQuery<Categoria> consulta = manager.createQuery("SELECT c FROM Categoria c", Categoria.class);
+		List<Categoria> listaDeCategorias = null;
 		
-		List<Categoria> listaDeCategorias = session.createQuery("from Categoria categoria").list();
-		
-		session.close();
+		try {
+			listaDeCategorias = consulta.getResultList();
+		} finally {
+			manager.close();
+		}
 		
 		return listaDeCategorias;
 	}
 	
 	public static Categoria buscarPorClave(int id) {
-
-		SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
-		Session session = factoriaSession.openSession();
-		Query consulta = session.createQuery("from Categoria categoria where id=:id");
-		consulta.setInteger("id", id);
+		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+		EntityManager manager = factoriaSession.createEntityManager();
 		
-		Categoria categoria = (Categoria) ((org.hibernate.Query) consulta).uniqueResult();
-		session.close();
+		TypedQuery<Categoria> consulta = manager.createQuery("Select c from Categoria c where c.id=?1", Categoria.class);
+		consulta.setParameter(1, id);
+		Categoria categoria = null;
+		
+		try {
+			categoria = consulta.getSingleResult();
+		} finally {
+			manager.close();
+		}
+		
 		return categoria;
-
 	}
 }

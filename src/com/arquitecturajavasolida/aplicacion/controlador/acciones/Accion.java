@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.arquitecturajavasolida.aplicacion.HibernateHelper;
+import com.arquitecturajavasolida.aplicacion.JPAHelper;
 import com.arquitecturajavasolida.aplicacion.controlador.ControladorLibrosException;
 
 public abstract class Accion {
 	
-	private static final Logger log = LogManager.getLogger(HibernateHelper.class.getPackage().getName());
+	private static final Logger log = LogManager.getLogger(JPAHelper.class.getPackage().getName());
 	
 	//Constantes de error
 	private final static String CLASENOENCONTRADA = "Clase no encontrada";
