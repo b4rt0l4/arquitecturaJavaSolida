@@ -5,9 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajavasolida.aplicacion.bo.Categoria;
 import com.arquitecturajavasolida.aplicacion.bo.Libro;
-import com.arquitecturajavasolida.aplicacion.dao.DAOAbstractFactory;
-import com.arquitecturajavasolida.aplicacion.dao.DAOFactory;
-import com.arquitecturajavasolida.aplicacion.dao.LibroDAO;
+import com.arquitecturajavasolida.aplicacion.servicios.ServicioLibros;
+import com.arquitecturajavasolida.aplicacion.servicios.impl.ServicioLibrosImpl;
 
 public class ModificarLibroAccion extends Accion {
 
@@ -17,12 +16,12 @@ public class ModificarLibroAccion extends Accion {
 		String titulo = request.getParameter("titulo");
 		String categoria = request.getParameter("categoria");
 		Categoria objetoCategoria = new Categoria(Integer.parseInt(categoria));
-		
-		DAOFactory factoria = DAOAbstractFactory.getInstance();
-		LibroDAO libroDAO = factoria.getLibroDAO();
-		
+
+		ServicioLibros servicioLibros = new ServicioLibrosImpl();
+
 		Libro libro = new Libro(isbn, titulo, objetoCategoria);
-		libroDAO.salvar(libro);
+
+		servicioLibros.salvarLibro(libro);
 		
 		return "MostrarLibros.do";
 	}
