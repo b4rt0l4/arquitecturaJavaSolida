@@ -5,8 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajavasolida.aplicacion.bo.Categoria;
 import com.arquitecturajavasolida.aplicacion.bo.Libro;
+import com.arquitecturajavasolida.aplicacion.dao.DAOAbstractFactory;
+import com.arquitecturajavasolida.aplicacion.dao.DAOFactory;
 import com.arquitecturajavasolida.aplicacion.dao.LibroDAO;
-import com.arquitecturajavasolida.aplicacion.dao.jpa.LibroDAOJPAImpl;
 
 public class InsertarLibroAccion extends Accion {
 
@@ -18,7 +19,8 @@ public class InsertarLibroAccion extends Accion {
 		String categoria = request.getParameter("categoria");
 		Categoria objetoCategoria = new Categoria(Integer.parseInt(categoria));
 		
-		LibroDAO libroDAO = new LibroDAOJPAImpl();
+		DAOFactory factoria = DAOAbstractFactory.getInstance();
+		LibroDAO libroDAO = factoria.getLibroDAO();
 		
 		Libro libro = new Libro(isbn, titulo, objetoCategoria);
 		libroDAO.insertar(libro);
