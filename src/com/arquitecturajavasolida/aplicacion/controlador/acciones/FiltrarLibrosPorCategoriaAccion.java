@@ -8,21 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.arquitecturajavasolida.aplicacion.bo.Categoria;
 import com.arquitecturajavasolida.aplicacion.bo.Libro;
 import com.arquitecturajavasolida.aplicacion.servicios.ServicioLibros;
-import com.arquitecturajavasolida.aplicacion.servicios.impl.ServicioLibrosImpl;
 
 public class FiltrarLibrosPorCategoriaAccion extends Accion {
 
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-		ServicioLibros servicioLibros = new ServicioLibrosImpl();
+		ServicioLibros servicio = (ServicioLibros) getBean("servicioLibros", request);
+
 		List<Libro> listaDeLibros = null;
-		List<Categoria> listaDeCategorias = servicioLibros.buscarCategoriasLibros();
+		List<Categoria> listaDeCategorias = servicio.buscarCategoriasLibros();
 
 		String categoria = request.getParameter("categoria");
 		if (categoria == null || categoria.equals("seleccionar")) {
-			listaDeLibros = servicioLibros.buscarTodosLosLibros();
+			listaDeLibros = servicio.buscarTodosLosLibros();
 		} else {
-			listaDeLibros = servicioLibros.buscarLibrosPorCategoria(Integer.parseInt(categoria));
+			listaDeLibros = servicio.buscarLibrosPorCategoria(Integer.parseInt(categoria));
 		}
 		
 		request.setAttribute("listaDeLibros", listaDeLibros);

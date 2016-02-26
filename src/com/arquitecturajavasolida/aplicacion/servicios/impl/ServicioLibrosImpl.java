@@ -2,8 +2,6 @@ package com.arquitecturajavasolida.aplicacion.servicios.impl;
 
 import java.util.List;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.arquitecturajavasolida.aplicacion.bo.Categoria;
 import com.arquitecturajavasolida.aplicacion.bo.Libro;
 import com.arquitecturajavasolida.aplicacion.dao.CategoriaDAO;
@@ -14,13 +12,6 @@ public class ServicioLibrosImpl implements ServicioLibros {
 
 	private LibroDAO libroDAO = null;
 	private CategoriaDAO categoriaDAO = null;
-
-	@SuppressWarnings("resource")
-	public ServicioLibrosImpl() {
-		ClassPathXmlApplicationContext factoria = new ClassPathXmlApplicationContext("applicationContext.xml");
-		libroDAO = (LibroDAO) factoria.getBean("libroDAO");
-		categoriaDAO = (CategoriaDAO) factoria.getBean("categoriaDAO");
-	}
 
 	@Override
 	public void insertarLibro(Libro libro) {
@@ -61,5 +52,25 @@ public class ServicioLibrosImpl implements ServicioLibros {
 	public List<Libro> buscarLibrosPorCategoria(int id) {
 		Categoria categoria = categoriaDAO.buscarPorClave(id);
 		return libroDAO.buscarPorCategoria(categoria);
+	}
+
+	@Override
+	public LibroDAO getLibroDAO() {
+		return libroDAO;
+	}
+
+	@Override
+	public void setLibroDAO(LibroDAO libroDAO) {
+		this.libroDAO = libroDAO;
+	}
+
+	@Override
+	public CategoriaDAO getCategoriaDAO() {
+		return categoriaDAO;
+	}
+
+	@Override
+	public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
+		this.categoriaDAO = categoriaDAO;
 	}
 }

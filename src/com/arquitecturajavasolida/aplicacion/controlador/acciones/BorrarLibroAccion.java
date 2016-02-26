@@ -5,17 +5,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajavasolida.aplicacion.bo.Libro;
 import com.arquitecturajavasolida.aplicacion.servicios.ServicioLibros;
-import com.arquitecturajavasolida.aplicacion.servicios.impl.ServicioLibrosImpl;
 
 public class BorrarLibroAccion extends Accion {
 
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 		String isbn = request.getParameter("isbn");
-		ServicioLibros servicioLibros = new ServicioLibrosImpl();
+		ServicioLibros servicio = (ServicioLibros) getBean("servicioLibros", request);
 		
 		Libro libro = new Libro(isbn);
-		servicioLibros.borrarLibro(libro);
+		servicio.borrarLibro(libro);
 		
 		return "MostrarLibros.do";
 	}

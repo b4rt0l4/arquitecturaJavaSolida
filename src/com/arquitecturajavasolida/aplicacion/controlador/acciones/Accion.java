@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.arquitecturajavasolida.aplicacion.controlador.ControladorLibrosException;
 import com.arquitecturajavasolida.aplicacion.dao.jpa.JPAHelper;
@@ -40,5 +42,10 @@ public abstract class Accion {
 	
 	private static  String getPackage() {
 		return Accion.class.getPackage().getName();
+	}
+
+	public Object getBean (String nombre, HttpServletRequest request) {
+		WebApplicationContext factoria = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getSession().getServletContext());
+		return factoria.getBean(nombre);
 	}
 }

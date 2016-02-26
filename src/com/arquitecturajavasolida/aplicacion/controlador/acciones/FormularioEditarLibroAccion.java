@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.arquitecturajavasolida.aplicacion.bo.Categoria;
 import com.arquitecturajavasolida.aplicacion.bo.Libro;
 import com.arquitecturajavasolida.aplicacion.servicios.ServicioLibros;
-import com.arquitecturajavasolida.aplicacion.servicios.impl.ServicioLibrosImpl;
 
 public class FormularioEditarLibroAccion extends Accion {
 
@@ -16,9 +15,10 @@ public class FormularioEditarLibroAccion extends Accion {
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 		String isbn = request.getParameter("isbn");
 
-		ServicioLibros servicioLibros = new ServicioLibrosImpl();
-		List<Categoria> listaDeCategorias = servicioLibros.buscarCategoriasLibros();
-		Libro libro = servicioLibros.buscarLibroPorClave(isbn);
+		ServicioLibros servicio = (ServicioLibros) getBean("servicioLibros", request);
+
+		List<Categoria> listaDeCategorias = servicio.buscarCategoriasLibros();
+		Libro libro = servicio.buscarLibroPorClave(isbn);
 		
 		request.setAttribute("listaDeCategorias", listaDeCategorias);
 		request.setAttribute("libro", libro);

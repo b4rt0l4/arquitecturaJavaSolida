@@ -15,23 +15,25 @@ import com.arquitecturajavasolida.aplicacion.dao.GenericDAO;
 public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements GenericDAO<T, Id> {
 	
 	private Class<T> claseDePersistencia;
+	private EntityManagerFactory entityManagerFactory;
 
 	@SuppressWarnings("unchecked")
 	public GenericDAOJPAImpl() {
 		this.claseDePersistencia = (Class<T>) ( (ParameterizedType)  getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	public EntityManager getManager() {
-		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-		EntityManager manager = factoriaSession.createEntityManager();
-		
-		return manager;
+	public EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
+	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
 	}
 	
 	@Override
 	public T buscarPorClave(Id id) {
 
-		EntityManager manager = getManager();
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
 
 		T objeto = null;
 		try {
@@ -45,7 +47,7 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements G
 	@Override
 	public List<T> buscarTodos() {
 
-		EntityManager manager = getManager();
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
 
 		List<T> listaDeObjetos = null;
 		try {
@@ -60,7 +62,7 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements G
 
 	public void insertar(T objeto) {
 
-		EntityManager manager = getManager();
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
 
 		EntityTransaction tx = null;
 		try {
@@ -78,7 +80,7 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements G
 	
 	public void salvar(T objeto) {
 
-		EntityManager manager = getManager();
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
 
 		EntityTransaction tx = null;
 		try {
@@ -96,7 +98,7 @@ public abstract class GenericDAOJPAImpl<T, Id extends Serializable> implements G
 
 	public void borrar(T objeto) {
 
-		EntityManager manager = getManager();
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
 
 		EntityTransaction tx = null;
 		try {

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.arquitecturajavasolida.aplicacion.bo.Categoria;
 import com.arquitecturajavasolida.aplicacion.bo.Libro;
 import com.arquitecturajavasolida.aplicacion.servicios.ServicioLibros;
-import com.arquitecturajavasolida.aplicacion.servicios.impl.ServicioLibrosImpl;
 
 public class InsertarLibroAccion extends Accion {
 
@@ -18,11 +17,11 @@ public class InsertarLibroAccion extends Accion {
 		String categoria = request.getParameter("categoria");
 		Categoria objetoCategoria = new Categoria(Integer.parseInt(categoria));
 
-		ServicioLibros servicioLibros = new ServicioLibrosImpl();
+		ServicioLibros servicio = (ServicioLibros) getBean("servicioLibros", request);
 
 		Libro libro = new Libro(isbn, titulo, objetoCategoria);
 
-		servicioLibros.insertarLibro(libro);
+		servicio.insertarLibro(libro);
 		
 		return "MostrarLibros.do";
 	}
